@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chat Client</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <script>
+        let apiKey = "Token"; // Replace your API key
+        let socket;
+
+        function connectWebSocket() {
+            socket = new WebSocket("ws://ServerIP:443"); // Replace with the actual Server IP
+
+            socket.onopen = () => {
+                console.log("Connected to the server.");
+                document.getElementById("status").textContent = "Connected";
+            };
+
+            socket.onmessage = (event) => {
+                const data = JSON.parse(event.data);
+                const messageBox = document.getElementById("messages");
+
+                if (data.sender) {
+                    const timestamp = new Date(data.timestamp * 1000).toLocaleTimeString();
+                    messageBox.innerHTML += `<p><strong>${data.sender.username}</strong> [${timestamp}]: ${data.message}</p>`;
+                } else {
+                    messageBox.innerHTML += `<p>${data.message}</p>`;
+                }
+
+                messageBox.scrollTop = messageBox.scrollHeight;
+            };
+
+            socket.onclose = () => {
+                console.log("Disconnected from the server.");
+                document.getElementById("status").textContent = "Disconnected";
+            };
+
+            socket.onerror = (error) => {
+                console.error("WebSocket error:", error);
+                document.getElementById("status").textContent = "Error";
+            };
+        }
+
+        function sendMessage() {
+            const input = document.getElementById("messageInput");
+            const message = input.value;
+
+            if (message && socket && socket.readyState === WebSocket.OPEN) {
+                const payload = {
+                    action: "send_message",
+                    api_key: apiKey,
+                    message: message,
+                    timestamp: Math.floor(Date.now() / 1000),
+                };
+
+                socket.send(JSON.stringify(payload));
+                input.value = "";
+            } else {
+                alert("Cannot send message. WebSocket is not connected.");
+            }
+        }
+
+        window.onload = () => {
+            connectWebSocket();
+
+            document.getElementById("sendMessageBtn").addEventListener("click", sendMessage);
+        };
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Chat Client</h1>
+        <p>Status: <span id="status">Connecting...</span></p>
+        <div id="messages" style="height: 300px; overflow-y: auto; border: 1px solid #444; padding: 10px; background: #2a2b2e;"></div>
+        <input type="text" id="messageInput" placeholder="Type your message here..." style="width: 100%; padding: 10px; margin-top: 10px;">
+        <button id="sendMessageBtn" style="width: 100%; margin-top: 10px;">Send Message</button>
+    </div>
+</body>
+</html>

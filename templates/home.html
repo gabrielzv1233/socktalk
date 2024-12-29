@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SockTalk - Home</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to SockTalk</h1>
+        <p style="text-align: center;">Effortless, scalable messaging for developers and users alike.</p>
+        <div style="text-align: center; margin-top: 20px;">
+            {% if request.cookies.get('api_key') %}
+                <form action="/profile" style="display: inline;">
+                    <button class="logout">Profile</button>
+                </form>
+                <form action="/logout" style="display: inline;">
+                    <button class="logout">Logout</button>
+                </form>
+            {% else %}
+                <form action="/login" style="display: inline;">
+                    <button class="logout" >Login</button>
+                </form>
+                <form action="/signup" style="display: inline;">
+                    <button class="logout">Signup</button>
+                </form>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

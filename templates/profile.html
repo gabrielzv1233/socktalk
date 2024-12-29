@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Profile</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <script>
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                alert('API token copied to clipboard!');
+            }).catch(err => {
+                alert('Failed to copy token: ' + err);
+            });
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Profile</h1>
+        {% if error %}
+            <p class="error">{{ error }}</p>
+        {% endif %}
+        <p>Username: {{ username }}</p>
+        <form method="POST">
+            <h3>Change Username</h3>
+            <input type="text" name="new_username" placeholder="New Username" required>
+            <button type="submit" name="action" value="change_username">Change Username</button>
+        </form>
+        <h3>API Key</h3>
+        <p class="api-key" onclick="copyToClipboard('{{ api_key }}')">{{ api_key }}</p>
+        <form method="POST">
+            <button type="submit" name="action" value="reset_api_key">Reset API Key</button>
+        </form>
+        <form method="POST">
+            <h3>Change Password</h3>
+            <input type="password" name="old_password" placeholder="Current Password" required>
+            <input type="password" name="new_password" placeholder="New Password" required>
+            <button type="submit" name="action" value="change_password">Change Password</button>
+        </form>
+        <form action="/logout">
+            <button class="logout">Logout</button>
+        </form>
+    </div>
+</body>
+</html>

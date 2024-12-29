@@ -1,0 +1,104 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #202123;
+    color: #ececf1;
+}
+
+.container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background: #333335;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+}
+
+h1 {
+    text-align: center;
+    color: #ececf1;
+}
+
+h3 {
+    margin-bottom: 12px;
+}
+
+form {
+    margin-top: 0px;
+}
+
+input[type="text"], input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    margin-top: 0px;
+    border: 1px solid #444;
+    border-radius: 4px;
+    background-color: #2a2b2e;
+    color: #ececf1;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #444;
+    border-radius: 4px;
+    background-color: #FFFFFF;
+    color: #0E0E0E;
+    font-weight: bold;
+    text-align: center;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+    margin-top: 0px;
+}
+
+button:hover {
+    background-color: #C1C1C1;
+}
+
+button.logout {
+    width: 33.33%;
+    margin: 10px auto;
+    display: block;
+    background-color: #FFFFFF;
+    color: #0E0E0E;
+    margin-top: 0;
+}
+
+button.logout:hover {
+    background-color: #C1C1C1;
+}
+
+p.api-key {
+    word-wrap: break-word;
+    cursor: pointer;
+    color: gold;
+    font-weight: bold;
+}
+
+p.api-key:hover {
+    text-decoration: underline;
+}
+
+.error {
+    color: #db4437;
+    text-align: center;
+}
+
+a {
+    display: block;
+    text-align: center;
+    margin: 10px 0;
+    color: #10a37f;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
